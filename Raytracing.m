@@ -29,16 +29,20 @@ Lens4 = fplot(@(x) (-sqrt(R.^2-(x-(L+T-R)).^2)),[(L+T-R+R/2),(L+T)],'k'); axis e
 %y2 = R * sin(th);
 %Lens2 = plot(x2, y2,'k'); axis equal;
 
-ray1 = fplot(@(x) K1*(x) + H,[0,20], 'r');axis equal;
-ray2 = fplot(@(x) K2*(x) + H,[0,20], 'b');axis equal;
-ray3 = fplot(@(x) K3*(x) + H,[0,20], 'g');axis equal;
+ray1 = fplot(@(x) K1*(x) + H,[0,xi_1], 'r');axis equal;
+ray2 = fplot(@(x) K2*(x) + H,[0,xi_2], 'b');axis equal;
+ray3 = fplot(@(x) K3*(x) + H,[0,xi_3], 'g');axis equal;
 
-y2 = K1*(x) + H;
-y6 = 0;
-xi_1 = (sqrt(R.^2-(y2-y6).^2)+(L+R));
-yi_1 = K1*(xi_1) + H; 
-plot(xi_1,yi_1,'ko');
+xi_1 = (-H*K1 + L + R - sqrt(-H^2 - 2*H*K1*L - K1^2 * L^2 - 2*H*K1*R - 2*K1^2 *L*R + R^2))/(1 + K1^2);
+xi_2 = (-H*K2 + L + R - sqrt(-H^2 - 2*H*K2*L - K2^2 * L^2 - 2*H*K2*R - 2*K2^2 *L*R + R^2))/(1 + K2^2);
+xi_3 = (-H*K3 + L + R - sqrt(-H^2 - 2*H*K3*L - K3^2 * L^2 - 2*H*K3*R - 2*K3^2 *L*R + R^2))/(1 + K3^2);
 
-
-
-
+yi_1 = (K1*(xi_1) + H); 
+yi_2 = (K2*(xi_2) + H);
+yi_3 = (K3*(xi_3) + H);
+G = xi_1;
+J = xi_2;
+D = xi_3;
+plot(G,yi_1,'ko');axis equal;
+plot(J,yi_2,'ko');axis equal;
+plot(D,yi_3,'ko');axis equal;
